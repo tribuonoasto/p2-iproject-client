@@ -107,19 +107,17 @@ export const usePostStore = defineStore("post", {
     },
 
     // FETCH POST
-    async fetchPosts(page) {
+    async fetchPosts() {
+      this.currentPage = 0
       try {
-        if (!page) {
-          page = 0;
-        }
         const posts = await axios({
           method: "get",
-          url: `${this.baseUrl}/posts/?page=${page}`,
+          url: `${this.baseUrl}/posts/`,
           headers: {
             access_token: localStorage.access_token,
           },
         });
-        this.posts.push(...posts.data.posts);
+        this.posts = posts.data.posts;
       } catch (error) {
         Swal.fire({
           icon: "error",
@@ -138,7 +136,23 @@ export const usePostStore = defineStore("post", {
           document.documentElement.offsetHeight;
         if (bottomOfWindow) {
           this.currentPage += 1;
-          this.fetchPosts(this.currentPage);
+          axios({
+            method: "get",
+            url: `${this.baseUrl}/posts/?page=${this.currentPage}`,
+            headers: {
+              access_token: localStorage.access_token,
+            },
+          })
+            .then((result) => {
+              this.posts.push(...result.data.posts);
+            })
+            .catch((error) => {
+              Swal.fire({
+                icon: "error",
+                title: "Cannot Find Movies!",
+                text: error.response.data.message,
+              });
+            });
         }
       };
     },
@@ -154,7 +168,6 @@ export const usePostStore = defineStore("post", {
             access_token: localStorage.access_token,
           },
         });
-        
       } catch (error) {
         Swal.fire({
           icon: "error",
