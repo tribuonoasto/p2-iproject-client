@@ -81,5 +81,27 @@ export const usePostStore = defineStore("post", {
         title: "Logout Successfully",
       });
     },
+
+    // REGISTER
+    async register(form) {
+      try {
+        await axios({
+          method: "post",
+          url: `${this.baseUrl}/register`,
+          data: form,
+        });
+        this.router.push("/login");
+        Toast.fire({
+          icon: "success",
+          title: "Register Successfully",
+        });
+      } catch (error) {
+        Swal.fire({
+          icon: "error",
+          title: "Cannot Register!",
+          text: error.response.data.message,
+        });
+      }
+    },
   },
 });
