@@ -1,11 +1,11 @@
 <script>
 import { mapActions, mapState } from "pinia";
 import { usePostStore } from "../stores/post";
-import Card from "../components/Card.vue";
+import Post from "../components/Post.vue";
 
 export default {
   components: {
-    Card,
+    Post,
   },
   created() {
     this.checkAccessToken();
@@ -25,7 +25,7 @@ export default {
     <div class="col-3"></div>
     <div class="col-6">
       <div class="row">
-        <Card v-for="(post, index) in posts" :key="index" :post="post" />
+        <Post v-for="(post, index) in posts" :key="index" :post="post" />
       </div>
     </div>
   </div>
