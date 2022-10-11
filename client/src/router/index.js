@@ -4,7 +4,7 @@ import Login from "../views/Login.vue";
 import Post from "../views/Post.vue";
 import Register from "../views/Register.vue";
 import User from "../views/User.vue";
-import Create from "../views/Create.vue"
+import Create from "../views/Create.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -40,6 +40,24 @@ const router = createRouter({
       component: Create,
     },
   ],
+});
+
+router.beforeEach((to, from) => {
+  if (
+    to.name != "Login" &&
+    to.name != "Register" &&
+    to.name != "Home" &&
+    !localStorage.access_token
+  ) {
+    return "/login";
+  }
+
+  if (to.name == "login" && localStorage.access_token) {
+    return "/";
+  }
+  if (to.name == "register" && localStorage.access_token) {
+    return "/";
+  }
 });
 
 export default router;
