@@ -20,5 +20,55 @@ export const usePostStore = defineStore("post", {
     loginData: {},
   }),
   getters: {},
-  actions: {},
+  actions: {
+    // LOGIN
+    async login(form) {
+      try {
+        const loginData = await axios({
+          method: "post",
+          url: `${this.baseUrl}/login`,
+          data: form,
+        });
+        localStorage.setItem("access_token", loginData.data.access_token);
+        this.router.push("/");
+        Toast.fire({
+          icon: "success",
+          title: "Login Successfully",
+        });
+      } catch (error) {
+        Swal.fire({
+          icon: "error",
+          title: "Cannot Login!",
+          text: error.response.data.message,
+        });
+      }
+    },
+
+    // CHECK ACCESS TOKEN
+    async checkAccessToken() {
+      const access_token = localStorage.access_token;
+      if (!access_token) {
+      } else {
+        try {
+          const loginData = await axios({
+            method: "get",
+            url: `${this.baseUrl}/authentication`,
+            headers: {
+              access_token: access_token,
+            },
+          });
+          this.loginData = loginData.data;
+        } catch (error) {
+          this.router.push("/");
+          this.loginData = {};
+          localStorage.removeItem("access_token");
+          Swal.fire({
+            icon: "error",
+            title: "Invalid Token!",
+            text: error.response.data.message,
+          });
+        }
+      }
+    },
+  },
 });
