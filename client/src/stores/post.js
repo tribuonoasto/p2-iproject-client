@@ -119,11 +119,7 @@ export const usePostStore = defineStore("post", {
             access_token: localStorage.access_token,
           },
         });
-        this.posts.push(
-          posts.data.posts[0],
-          posts.data.posts[1],
-          posts.data.posts[2]
-        );
+        this.posts.push(...posts.data.posts);
       } catch (error) {
         Swal.fire({
           icon: "error",

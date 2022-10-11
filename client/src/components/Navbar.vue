@@ -15,7 +15,7 @@ export default {
 };
 </script>
 <template>
-  <div class="row">
+  <div class="row sticky">
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
       <div class="container-fluid">
         <RouterLink class="navbar-brand" to="/"
@@ -107,5 +107,11 @@ export default {
 <style>
 .navbarText {
   color: #dfe6e9;
+}
+
+.sticky {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
 }
 </style>
