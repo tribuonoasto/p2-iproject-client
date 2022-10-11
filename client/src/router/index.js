@@ -4,6 +4,7 @@ import Login from "../views/Login.vue";
 import Post from "../views/Post.vue";
 import Register from "../views/Register.vue";
 import User from "../views/User.vue";
+import Create from "../views/Create.vue"
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -32,6 +33,11 @@ const router = createRouter({
       path: "/user",
       name: "User",
       component: User,
+    },
+    {
+      path: "/create",
+      name: "Create",
+      component: Create,
     },
   ],
 });

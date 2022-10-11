@@ -70,5 +70,16 @@ export const usePostStore = defineStore("post", {
         }
       }
     },
+
+    // LOGOUT
+    async logout() {
+      localStorage.removeItem("access_token");
+      this.router.push("/");
+      this.loginData = {};
+      Toast.fire({
+        icon: "success",
+        title: "Logout Successfully",
+      });
+    },
   },
 });
