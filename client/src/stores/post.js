@@ -129,6 +129,7 @@ export const usePostStore = defineStore("post", {
       }
     },
 
+    // FETCH NEXT PAGE
     getNextPost() {
       window.onscroll = () => {
         let bottomOfWindow =
@@ -140,6 +141,27 @@ export const usePostStore = defineStore("post", {
           this.fetchPosts(this.currentPage);
         }
       };
+    },
+
+    // CREATE POST
+    async createPost(form) {
+      try {
+        await axios({
+          method: "post",
+          url: `${this.baseUrl}/posts`,
+          data: form,
+          headers: {
+            access_token: localStorage.access_token,
+          },
+        });
+        
+      } catch (error) {
+        Swal.fire({
+          icon: "error",
+          title: "Cannot Add Movies!",
+          text: error.response.data.message,
+        });
+      }
     },
   },
 });
