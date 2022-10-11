@@ -18,6 +18,7 @@ export const usePostStore = defineStore("post", {
   state: () => ({
     baseUrl: "http://localhost:3000",
     loginData: {},
+    posts: {},
   }),
   getters: {},
   actions: {
@@ -99,6 +100,26 @@ export const usePostStore = defineStore("post", {
         Swal.fire({
           icon: "error",
           title: "Cannot Register!",
+          text: error.response.data.message,
+        });
+      }
+    },
+
+    // FETCH POST
+    async fetchPosts() {
+      try {
+        const posts = await axios({
+          method: "get",
+          url: `${this.baseUrl}/posts`,
+          headers: {
+            access_token: localStorage.access_token,
+          },
+        });
+        this.posts = posts.data;
+      } catch (error) {
+        Swal.fire({
+          icon: "error",
+          title: "Cannot Find Movies!",
           text: error.response.data.message,
         });
       }
