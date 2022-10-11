@@ -21,6 +21,12 @@ export default {
         <RouterLink class="navbar-brand" to="/"
           ><img style="width: 100px" src="../assets/logo.png" alt=""
         /></RouterLink>
+        <div class="navbar-brand">
+          <RouterLink class="nav-link navbarText" to="/create">
+            <i class="fa-solid fa-face-laugh-squint"></i>
+            Post</RouterLink
+          >
+        </div>
         <button
           class="navbar-toggler"
           type="button"
@@ -32,6 +38,7 @@ export default {
         >
           <span class="navbar-toggler-icon"></span>
         </button>
+
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             <li class="nav-item">
@@ -40,15 +47,13 @@ export default {
               >
             </li>
             <li class="nav-item">
-              <RouterLink class="nav-link navbarText" to="/user">
-                <i class="fa-solid fa-image"></i>
-                {{ loginData.username }} Memes</RouterLink
+              <RouterLink
+                v-if="loginData.access_token"
+                class="nav-link navbarText"
+                to="/user"
               >
-            </li>
-            <li class="nav-item">
-              <RouterLink class="nav-link navbarText" to="/create">
-                <i class="fa-solid fa-face-laugh-squint"></i>
-                Fun The World</RouterLink
+                <i class="fa-solid fa-image"></i>
+                {{ loginData.username }} Memes collection</RouterLink
               >
             </li>
             <li class="nav-item dropdown">
