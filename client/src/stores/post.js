@@ -18,7 +18,8 @@ export const usePostStore = defineStore("post", {
   state: () => ({
     baseUrl: "http://localhost:3000",
     loginData: {},
-    posts: {},
+    posts: [],
+    currentPage: 0,
   }),
   getters: {},
   actions: {
@@ -106,16 +107,23 @@ export const usePostStore = defineStore("post", {
     },
 
     // FETCH POST
-    async fetchPosts() {
+    async fetchPosts(page) {
       try {
+        if (!page) {
+          page = 0;
+        }
         const posts = await axios({
           method: "get",
-          url: `${this.baseUrl}/posts`,
+          url: `${this.baseUrl}/posts/?page=${page}`,
           headers: {
             access_token: localStorage.access_token,
           },
         });
-        this.posts = posts.data;
+        this.posts.push(
+          posts.data.posts[0],
+          posts.data.posts[1],
+          posts.data.posts[2]
+        );
       } catch (error) {
         Swal.fire({
           icon: "error",
@@ -123,6 +131,19 @@ export const usePostStore = defineStore("post", {
           text: error.response.data.message,
         });
       }
+    },
+
+    getNextPost() {
+      window.onscroll = () => {
+        let bottomOfWindow =
+          document.documentElement.scrollTop +
+            document.documentElement.clientHeight ===
+          document.documentElement.offsetHeight;
+        if (bottomOfWindow) {
+          this.currentPage += 1;
+          this.fetchPosts(this.currentPage);
+        }
+      };
     },
   },
 });

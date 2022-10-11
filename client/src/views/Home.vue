@@ -9,10 +9,15 @@ export default {
   },
   created() {
     this.checkAccessToken();
+  },
+  beforeMount() {
     this.fetchPosts();
   },
+  mounted() {
+    this.getNextPost();
+  },
   computed: {
-    ...mapState(usePostStore, ["posts"]),
+    ...mapState(usePostStore, ["posts", "getNextPost"]),
   },
   methods: {
     ...mapActions(usePostStore, ["checkAccessToken", "fetchPosts"]),
