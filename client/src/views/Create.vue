@@ -6,6 +6,7 @@ export default {
   data() {
     return {
       formCreate: {},
+      boxes: 0,
     };
   },
   created() {
@@ -16,12 +17,17 @@ export default {
     ...mapState(usePostStore, ["memes"]),
   },
   methods: {
-    ...mapActions(usePostStore, ["createPost", "fetchMemes", "checkAccessToken"]),
+    ...mapActions(usePostStore, [
+      "createPost",
+      "fetchMemes",
+      "checkAccessToken",
+    ]),
     async submitCreate() {
       this.createPost(this.formCreate);
     },
-    async changeMeme(template_id) {
+    async changeMeme(template_id, boxes) {
       this.formCreate.template_id = template_id;
+      this.boxes = boxes;
     },
     async changePageMeme(page) {
       this.fetchMemes(page);
@@ -35,7 +41,7 @@ export default {
   <!-- memetemplate -->
   <div>
     <a
-      @click.prevent="changeMeme(meme.id)"
+      @click.prevent="changeMeme(meme.id, meme.box_count)"
       v-for="(meme, index) in memes.memes"
       href=""
     >
@@ -135,7 +141,7 @@ export default {
             required
           />
         </div>
-        <div class="mb-3">
+        <div v-if="boxes >= 2" class="mb-3">
           <label for="text2" class="form-label">Text 2</label>
           <input
             type="text"
@@ -143,6 +149,46 @@ export default {
             id="text2"
             placeholder="type text here"
             v-model="formCreate.text1"
+          />
+        </div>
+        <div v-if="boxes >= 3" class="mb-3">
+          <label for="text3" class="form-label">Text 3</label>
+          <input
+            type="text"
+            class="form-control"
+            id="text3"
+            placeholder="type text here"
+            v-model="formCreate.text2"
+          />
+        </div>
+        <div v-if="boxes >= 4" class="mb-3">
+          <label for="text4" class="form-label">Text 4</label>
+          <input
+            type="text"
+            class="form-control"
+            id="text4"
+            placeholder="type text here"
+            v-model="formCreate.text3"
+          />
+        </div>
+        <div v-if="boxes >= 5" class="mb-3">
+          <label for="text5" class="form-label">Text 5</label>
+          <input
+            type="text"
+            class="form-control"
+            id="text5"
+            placeholder="type text here"
+            v-model="formCreate.text4"
+          />
+        </div>
+        <div v-if="boxes >= 6" class="mb-3">
+          <label for="text6" class="form-label">Text 6</label>
+          <input
+            type="text"
+            class="form-control"
+            id="text6"
+            placeholder="type text here"
+            v-model="formCreate.text5"
           />
         </div>
         <button type="submit" class="btn btn-secondary mb-2">Post</button>

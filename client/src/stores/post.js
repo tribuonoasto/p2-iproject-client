@@ -55,6 +55,8 @@ export const usePostStore = defineStore("post", {
     async checkAccessToken() {
       const access_token = localStorage.access_token;
       if (!access_token) {
+        this.router.push("/login");
+        this.loginData = {};
       } else {
         try {
           const loginData = await axios({
@@ -66,7 +68,7 @@ export const usePostStore = defineStore("post", {
           });
           this.loginData = loginData.data;
         } catch (error) {
-          this.router.push("/");
+          this.router.push("/login");
           this.loginData = {};
           localStorage.removeItem("access_token");
           Swal.fire({
