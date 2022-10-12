@@ -145,7 +145,6 @@ export const usePostStore = defineStore("post", {
           },
         });
         this.post = post.data;
-        console.log(this.post);
       } catch (error) {
         Swal.fire({
           icon: "error",
@@ -229,6 +228,35 @@ export const usePostStore = defineStore("post", {
         Swal.fire({
           icon: "error",
           title: "Cannot Find Memes!",
+          text: error.response.data.message,
+        });
+      }
+    },
+
+    // FETCH POST
+    async githubSign() {
+      try {
+        OAuth.initialize("obRZPy0lbKrJG7llJKHItnvxqhM");
+        const github = await OAuth.popup("github");
+
+        const loginData = await axios({
+          method: "post",
+          url: `${this.baseUrl}/githubSignIn`,
+          data: {
+            githubToken: github.access_token,
+          },
+        });
+
+        localStorage.setItem("access_token", loginData.data.access_token);
+        this.router.push("/");
+        Toast.fire({
+          icon: "success",
+          title: "Login Successfully",
+        });
+      } catch (error) {
+        Swal.fire({
+          icon: "error",
+          title: "Cannot Login With Github!",
           text: error.response.data.message,
         });
       }

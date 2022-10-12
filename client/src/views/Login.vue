@@ -9,9 +9,13 @@ export default {
     };
   },
   methods: {
-    ...mapActions(usePostStore, ["login"]),
+    ...mapActions(usePostStore, ["login", "githubSign"]),
     async handleLogin() {
       this.login(this.form);
+    },
+    githubSignHandler() {
+      this.githubSign()
+      
     },
   },
 };
@@ -55,6 +59,13 @@ export default {
           </div>
           <button type="submit" class="btn btn-secondary mb-2">Login</button>
         </form>
+        <a
+          @click.prevent="githubSignHandler"
+          id="github-button"
+          class="btn btn-block btn-social btn-github"
+        >
+          <i class="fa fa-github"></i> Sign in with Github
+        </a>
       </div>
       <div class="col-4"></div>
     </div>
