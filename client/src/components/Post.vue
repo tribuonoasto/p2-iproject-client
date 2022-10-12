@@ -1,10 +1,13 @@
 <script>
-
 export default {
   props: ["post"],
   computed: {},
 
-  methods: {},
+  methods: {
+    detailPost(postId) {
+      this.$router.push(`/post/${postId}`);
+    },
+  },
 };
 </script>
 <template>
@@ -13,7 +16,12 @@ export default {
       <h3 class="mt-2">{{ post.title }}</h3>
     </div>
     <div id="imgPost" class="d-flex justify-content-center">
-      <img class="img-fluid" :src="post.imageUrl" alt="meme" />
+      <img
+        @click.prevent="detailPost(post.id)"
+        class="img-fluid"
+        :src="post.imageUrl"
+        alt="meme"
+      />
     </div>
     <div
       id="likePost"

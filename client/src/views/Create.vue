@@ -9,13 +9,14 @@ export default {
     };
   },
   created() {
+    this.checkAccessToken();
     this.fetchMemes();
   },
   computed: {
     ...mapState(usePostStore, ["memes"]),
   },
   methods: {
-    ...mapActions(usePostStore, ["createPost", "fetchMemes"]),
+    ...mapActions(usePostStore, ["createPost", "fetchMemes", "checkAccessToken"]),
     async submitCreate() {
       this.createPost(this.formCreate);
     },

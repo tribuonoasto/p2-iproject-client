@@ -20,6 +20,7 @@ export const usePostStore = defineStore("post", {
     loginData: {},
     posts: [],
     memes: [],
+    post: [],
     currentPage: 0,
   }),
   getters: {},
@@ -119,6 +120,27 @@ export const usePostStore = defineStore("post", {
           },
         });
         this.posts = posts.data.posts;
+      } catch (error) {
+        Swal.fire({
+          icon: "error",
+          title: "Cannot Find Post!",
+          text: error.response.data.message,
+        });
+      }
+    },
+
+    // FETCH ONE POST
+    async fetchPost(postId) {
+      try {
+        const post = await axios({
+          method: "get",
+          url: `${this.baseUrl}/posts/${postId}`,
+          headers: {
+            access_token: localStorage.access_token,
+          },
+        });
+        this.post = post.data;
+        console.log(this.post);
       } catch (error) {
         Swal.fire({
           icon: "error",
