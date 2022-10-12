@@ -9,12 +9,15 @@ export default {
     };
   },
   methods: {
-    ...mapActions(usePostStore, ["login", "githubSign"]),
+    ...mapActions(usePostStore, ["login", "githubSign", "twitterSign"]),
     async handleLogin() {
       this.login(this.form);
     },
     githubSignHandler() {
       this.githubSign();
+    },
+    twitterSignHandler() {
+      this.twitterSign();
     },
   },
 };
@@ -65,6 +68,12 @@ export default {
           class="btn btn-block btn-social btn-github mb-2"
         >
           <i class="fa fa-github"></i> Sign in with Github
+        </a>
+        <a
+          @click.prevent="twitterSignHandler"
+          class="btn btn-block btn-social btn-twitter mb-2 ms-2"
+        >
+          <i class="fa fa-twitter"></i> Sign in with Twitter
         </a>
       </div>
       <div class="col-4"></div>

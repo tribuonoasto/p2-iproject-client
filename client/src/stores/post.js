@@ -237,7 +237,7 @@ export const usePostStore = defineStore("post", {
       }
     },
 
-    // FETCH POST
+    // GITHUB SIGN
     async githubSign() {
       try {
         OAuth.initialize("obRZPy0lbKrJG7llJKHItnvxqhM");
@@ -248,6 +248,37 @@ export const usePostStore = defineStore("post", {
           url: `${this.baseUrl}/githubSignIn`,
           data: {
             githubToken: github.access_token,
+          },
+        });
+
+        localStorage.setItem("access_token", loginData.data.access_token);
+        this.router.push("/");
+        Toast.fire({
+          icon: "success",
+          title: "Login Successfully",
+        });
+      } catch (error) {
+        Swal.fire({
+          icon: "error",
+          title: "Cannot Login With Github!",
+          text: error.response.data.message,
+        });
+      }
+    },
+
+    // TWITTER SIGN
+    async twitterSign() {
+      try {
+        OAuth.initialize("obRZPy0lbKrJG7llJKHItnvxqhM");
+        const twitter = await OAuth.popup("twitter");
+
+        console.log(twitter);
+
+        const loginData = await axios({
+          method: "post",
+          url: `${this.baseUrl}/twitterSignIn`,
+          data: {
+            twitterToken: twitter.oauth_token,
           },
         });
 
