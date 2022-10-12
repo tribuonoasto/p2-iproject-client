@@ -163,25 +163,29 @@ export const usePostStore = defineStore("post", {
           document.documentElement.offsetHeight;
         if (bottomOfWindow) {
           this.currentPage += 1;
-          axios({
-            method: "get",
-            url: `${this.baseUrl}/posts/?page=${this.currentPage}`,
-            headers: {
-              access_token: localStorage.access_token,
-            },
-          })
-            .then((result) => {
-              this.posts.push(...result.data.posts);
-            })
-            .catch((error) => {
-              Swal.fire({
-                icon: "error",
-                title: "Cannot Find Post!",
-                text: error.response.data.message,
-              });
-            });
+          this.fetchPostsWithPage(this.currentPage);
         }
       };
+    },
+
+    //FETCH POST WITH PAGE
+    async fetchPostsWithPage(page) {
+      try {
+        const result = await axios({
+          method: "get",
+          url: `${this.baseUrl}/posts/?page=${this.currentPage}`,
+          headers: {
+            access_token: localStorage.access_token,
+          },
+        });
+        this.posts.push(...result.data.posts);
+      } catch (error) {
+        Swal.fire({
+          icon: "error",
+          title: "Cannot Find Post!",
+          text: error.response.data.message,
+        });
+      }
     },
 
     // CREATE POST
@@ -257,6 +261,26 @@ export const usePostStore = defineStore("post", {
         Swal.fire({
           icon: "error",
           title: "Cannot Login With Github!",
+          text: error.response.data.message,
+        });
+      }
+    },
+
+    // LIKE POST
+    async likePost(postId) {
+      try {
+        const post = await axios({
+          method: "post",
+          url: `${this.baseUrl}/posts/${postId}/like`,
+          headers: {
+            access_token: localStorage.access_token,
+          },
+        });
+        this.fetchPosts();
+      } catch (error) {
+        Swal.fire({
+          icon: "error",
+          title: "Cannot Like Post",
           text: error.response.data.message,
         });
       }
