@@ -19,6 +19,7 @@ export const usePostStore = defineStore("post", {
     baseUrl: "http://localhost:3000",
     loginData: {},
     posts: [],
+    memes: [],
     currentPage: 0,
   }),
   getters: {},
@@ -108,7 +109,7 @@ export const usePostStore = defineStore("post", {
 
     // FETCH POST
     async fetchPosts() {
-      this.currentPage = 0
+      this.currentPage = 0;
       try {
         const posts = await axios({
           method: "get",
@@ -121,7 +122,7 @@ export const usePostStore = defineStore("post", {
       } catch (error) {
         Swal.fire({
           icon: "error",
-          title: "Cannot Find Movies!",
+          title: "Cannot Find Post!",
           text: error.response.data.message,
         });
       }
@@ -149,7 +150,7 @@ export const usePostStore = defineStore("post", {
             .catch((error) => {
               Swal.fire({
                 icon: "error",
-                title: "Cannot Find Movies!",
+                title: "Cannot Find Post!",
                 text: error.response.data.message,
               });
             });
@@ -168,10 +169,39 @@ export const usePostStore = defineStore("post", {
             access_token: localStorage.access_token,
           },
         });
+        this.router.push("/");
+        Toast.fire({
+          icon: "success",
+          title: "Create Post Successfully",
+        });
       } catch (error) {
         Swal.fire({
           icon: "error",
-          title: "Cannot Add Movies!",
+          title: "Cannot Add Post!",
+          text: error.response.data.message,
+        });
+      }
+    },
+
+    // FETCH POST
+    async fetchMemes(page) {
+      try {
+        if (!page) {
+          page = 1;
+        }
+        const memes = await axios({
+          method: "get",
+          url: `${this.baseUrl}/posts/memes/?page=${page}`,
+          headers: {
+            access_token: localStorage.access_token,
+          },
+        });
+        this.memes = memes.data;
+        this.router.push("/create");
+      } catch (error) {
+        Swal.fire({
+          icon: "error",
+          title: "Cannot Find Memes!",
           text: error.response.data.message,
         });
       }
