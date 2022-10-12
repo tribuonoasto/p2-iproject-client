@@ -20,7 +20,10 @@ export const usePostStore = defineStore("post", {
     loginData: {},
     posts: [],
     memes: [],
-    post: [],
+    post: {
+      Likes: [],
+      User: {},
+    },
     currentPage: 0,
   }),
   getters: {},
