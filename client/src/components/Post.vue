@@ -1,7 +1,13 @@
 <script>
+import formatDistance from "date-fns/formatDistance";
+
 export default {
   props: ["post"],
-  computed: {},
+  computed: {
+    formattedDate() {
+      return formatDistance(new Date(this.post.createdAt), new Date());
+    },
+  },
 
   methods: {
     detailPost(postId) {
@@ -14,6 +20,7 @@ export default {
   <div class="mb-2 border-bottom border-2">
     <div id="titlePost">
       <h3 class="mt-2">{{ post.title }}</h3>
+      <h5 style="font-size: 15px;" class="mt-2">{{ formattedDate }} ago</h5>
     </div>
     <div id="imgPost" class="d-flex justify-content-center">
       <img

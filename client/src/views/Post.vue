@@ -1,6 +1,7 @@
 <script>
 import { mapActions, mapState } from "pinia";
 import { usePostStore } from "../stores/post";
+import formatDistance from "date-fns/formatDistance";
 
 export default {
   created() {
@@ -31,6 +32,9 @@ export default {
   },
   computed: {
     ...mapState(usePostStore, ["post"]),
+    formattedDate() {
+      return formatDistance(new Date(this.post.createdAt), new Date());
+    },
   },
   methods: {
     ...mapActions(usePostStore, ["fetchPost", "checkAccessToken"]),
@@ -46,6 +50,9 @@ export default {
         <div class="mb-2 border-bottom border-2">
           <div id="titlePost">
             <h3 class="mt-2">{{ post.title }}</h3>
+            <h5 style="font-size: 15px" class="mt-2">
+              {{ formattedDate }} ago
+            </h5>
           </div>
           <div id="imgPost" class="d-flex justify-content-center">
             <img class="img-fluid" :src="post.imageUrl" alt="meme" />
