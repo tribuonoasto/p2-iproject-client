@@ -52,10 +52,10 @@ router.beforeEach((to, from) => {
     return "/login";
   }
 
-  if (to.name == "login" && localStorage.access_token) {
+  if (to.name == "Login" && localStorage.access_token) {
     return "/";
   }
-  if (to.name == "register" && localStorage.access_token) {
+  if (to.name == "Register" && localStorage.access_token) {
     return "/";
   }
 });

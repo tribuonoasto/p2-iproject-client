@@ -6,6 +6,21 @@ export default {
   created() {
     this.checkAccessToken();
   },
+  mounted() {
+    var disqus_config = function () {
+      this.page.url = "https://bukan9gag-dbeda.web.app/";
+      this.page.identifier = PAGE_IDENTIFIER;
+    };
+
+    (function () {
+      // DON'T EDIT BELOW THIS LINE
+      var d = document,
+        s = d.createElement("script");
+      s.src = "https://https-bukan9gag-dbeda-web-app.disqus.com/embed.js";
+      s.setAttribute("data-timestamp", +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  },
   watch: {
     "$route.params": {
       async handler(params) {
@@ -45,6 +60,7 @@ export default {
         </div>
       </div>
       DISKUS
+      <div id="disqus_thread"></div>
     </div>
   </div>
   <div class="col-3"></div>

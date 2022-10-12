@@ -19,7 +19,7 @@ export default {
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
       <div class="container-fluid">
         <RouterLink class="navbar-brand" to="/"
-          ><img style="width: 100px" src="../assets/logo.png" alt=""
+          ><img style="width: 100px" src="" alt=""
         /></RouterLink>
         <div class="navbar-brand">
           <RouterLink class="nav-link navbarText" to="/create">
