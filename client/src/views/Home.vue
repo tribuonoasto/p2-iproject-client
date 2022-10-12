@@ -16,6 +16,9 @@ export default {
   mounted() {
     this.getNextPost();
   },
+  unmounted() {
+    window.onscroll = () => {};
+  },
   computed: {
     ...mapState(usePostStore, ["posts", "getNextPost"]),
   },
