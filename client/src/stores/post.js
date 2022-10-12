@@ -272,8 +272,6 @@ export const usePostStore = defineStore("post", {
         OAuth.initialize("obRZPy0lbKrJG7llJKHItnvxqhM");
         const twitter = await OAuth.popup("twitter");
 
-        console.log(twitter);
-
         const loginData = await axios({
           method: "post",
           url: `${this.baseUrl}/twitterSignIn`,
