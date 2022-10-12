@@ -37,7 +37,11 @@ export default {
     },
   },
   methods: {
-    ...mapActions(usePostStore, ["fetchPost", "checkAccessToken"]),
+    ...mapActions(usePostStore, ["fetchPost", "checkAccessToken", "likePost"]),
+    likeHandler(postId) {
+      this.likePost(postId);
+      
+    },
   },
 };
 </script>
@@ -58,6 +62,7 @@ export default {
             <img class="img-fluid" :src="post.imageUrl" alt="meme" />
           </div>
           <div
+            @click.prevent="likeHandler(post.id)"
             id="likePost"
             class="border border-2 mt-3 mb-3"
             style="width: 100px; font-size: 1.5em"
@@ -66,7 +71,6 @@ export default {
           </div>
         </div>
       </div>
-      DISKUS
       <div id="disqus_thread"></div>
     </div>
   </div>

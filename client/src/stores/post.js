@@ -276,7 +276,12 @@ export const usePostStore = defineStore("post", {
             access_token: localStorage.access_token,
           },
         });
-        this.fetchPosts();
+        this.posts.find((el) => {
+          if (el.id === postId) {
+            el.Likes.push("placeholder");
+          }
+        });
+        this.fetchPost(postId);
       } catch (error) {
         Swal.fire({
           icon: "error",

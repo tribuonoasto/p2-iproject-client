@@ -14,8 +14,7 @@ export default {
       this.login(this.form);
     },
     githubSignHandler() {
-      this.githubSign()
-      
+      this.githubSign();
     },
   },
 };
@@ -59,10 +58,11 @@ export default {
           </div>
           <button type="submit" class="btn btn-secondary mb-2">Login</button>
         </form>
+        <p>Sign in With</p>
         <a
           @click.prevent="githubSignHandler"
           id="github-button"
-          class="btn btn-block btn-social btn-github"
+          class="btn btn-block btn-social btn-github mb-2"
         >
           <i class="fa fa-github"></i> Sign in with Github
         </a>

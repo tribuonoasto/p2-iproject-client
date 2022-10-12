@@ -16,10 +16,14 @@ export default {
 </script>
 <template>
   <div class="row sticky">
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <nav class="navbar navbar-expand-lg bg-light">
       <div class="container-fluid">
         <RouterLink class="navbar-brand" to="/"
-          ><img style="width: 100px" src="" alt=""
+          ><img
+            class="img-fluid"
+            style="height: 30px"
+            src="../assets/9GAG3.png"
+            alt=""
         /></RouterLink>
         <div class="navbar-brand">
           <RouterLink class="nav-link navbarText" to="/create">
@@ -102,7 +106,7 @@ export default {
 
 <style>
 .navbarText {
-  color: #dfe6e9;
+  color: #353b48;
 }
 
 .sticky {
