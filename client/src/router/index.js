@@ -3,7 +3,6 @@ import Home from "../views/Home.vue";
 import Login from "../views/Login.vue";
 import Post from "../views/Post.vue";
 import Register from "../views/Register.vue";
-import User from "../views/User.vue";
 import Create from "../views/Create.vue";
 
 const router = createRouter({
@@ -28,11 +27,6 @@ const router = createRouter({
       path: "/post/:id",
       name: "Post",
       component: Post,
-    },
-    {
-      path: "/user",
-      name: "User",
-      component: User,
     },
     {
       path: "/create",

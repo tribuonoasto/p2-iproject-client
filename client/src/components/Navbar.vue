@@ -47,14 +47,10 @@ export default {
               >
             </li>
             <li class="nav-item">
-              <RouterLink
-                v-if="loginData.access_token"
-                class="nav-link navbarText"
-                to="/user"
-              >
-                <i class="fa-solid fa-image"></i>
-                {{ loginData.username }} Memes collection</RouterLink
-              >
+              <div v-if="loginData.access_token" class="nav-link navbarText">
+                <i class="fa-solid fa-user"></i>
+                Hello {{ loginData.username }}
+              </div>
             </li>
             <li class="nav-item dropdown">
               <a
