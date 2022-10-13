@@ -16,7 +16,8 @@ const Toast = Swal.mixin({
 
 export const usePostStore = defineStore("post", {
   state: () => ({
-    baseUrl: "http://localhost:3000",
+    localUrl: "http://localhost:3000",
+    baseUrl: "https://bukan9gag.herokuapp.com",
     loginData: {},
     posts: [],
     memes: [],
@@ -55,7 +56,6 @@ export const usePostStore = defineStore("post", {
     async checkAccessToken() {
       const access_token = localStorage.access_token;
       if (!access_token) {
-        this.router.push("/login");
         this.loginData = {};
       } else {
         try {
