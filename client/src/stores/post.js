@@ -17,7 +17,7 @@ const Toast = Swal.mixin({
 export const usePostStore = defineStore("post", {
   state: () => ({
     localUrl: "http://localhost:3000",
-    baseUrl: "https://bukan9gag.herokuapp.com",
+    baseUrl: "http://localhost:3000",
     loginData: {},
     posts: [],
     memes: [],
@@ -311,6 +311,28 @@ export const usePostStore = defineStore("post", {
           }
         });
         this.fetchPost(postId);
+      } catch (error) {
+        Swal.fire({
+          icon: "error",
+          title: "Cannot Like Post",
+          text: error.response.data.message,
+        });
+      }
+    },
+
+    // LIKE POST
+    async uploadFile(image) {
+      try {
+        const post = await axios({
+          method: "post",
+          url: `${this.baseUrl}/posts/memeMulter`,
+          data: image,
+          headers: {
+            access_token: localStorage.access_token,
+          },
+        });
+        this.fetchPosts();
+        this.router.push("/");
       } catch (error) {
         Swal.fire({
           icon: "error",

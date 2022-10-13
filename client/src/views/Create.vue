@@ -1,4 +1,5 @@
 <script>
+import axios from "axios";
 import { mapActions, mapState } from "pinia";
 import { usePostStore } from "../stores/post";
 
@@ -7,6 +8,7 @@ export default {
     return {
       formCreate: {},
       boxes: 0,
+      image: null,
     };
   },
   created() {
@@ -21,6 +23,7 @@ export default {
       "createPost",
       "fetchMemes",
       "checkAccessToken",
+      "uploadFile",
     ]),
     async submitCreate() {
       this.createPost(this.formCreate);
@@ -32,6 +35,14 @@ export default {
     },
     async changePageMeme(page) {
       this.fetchMemes(page);
+    },
+    onFileSelected(event) {
+      this.image = event.target.files[0];
+    },
+    uploadImage() {
+      const fd = new FormData();
+      fd.append("meme", this.image, this.image.name);
+      this.uploadFile(fd);
     },
   },
 };
@@ -192,6 +203,12 @@ export default {
             </div>
             <button type="submit" class="btn btn-secondary mb-2">Post</button>
           </form>
+        </div>
+        <div class="uploadImage mt-2">
+          <h3>Have your own meme ? upload it here</h3>
+          <p>your filename is the title of the post</p>
+          <input type="file" name="meme" @change="onFileSelected" />
+          <button @click.prevent="uploadImage">Upload</button>
         </div>
       </div>
     </div>
