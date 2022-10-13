@@ -199,7 +199,7 @@ export default {
   </div>
 </template>
 <style>
-img:hover {
+.memes a img:hover {
   opacity: 50%;
 }
 
