@@ -312,7 +312,6 @@ export const usePostStore = defineStore("post", {
         });
         this.fetchPost(postId);
       } catch (error) {
-        this.router.push("/login");
         Swal.fire({
           icon: "error",
           title: "Cannot Like Post",
